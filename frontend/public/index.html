@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Fullstack CI/CD Demo Frontend</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 40px; }
+      pre { background:#f6f8fa; padding:12px; border-radius:6px; overflow:auto }
+      .btn { padding:8px 12px; background:#007acc; color:#fff; border:none; border-radius:4px; cursor:pointer }
+    </style>
+  </head>
+  <body>
+    <h1>Fullstack CI/CD Demo</h1>
+    <p>This single-page demo calls the backend API endpoints and displays the results.</p>
+
+    <div>
+      <button class="btn" id="btn-data">Load /api/data</button>
+      <button class="btn" id="btn-status">Load /api/status</button>
+      <button class="btn" id="btn-health">Check /health</button>
+    </div>
+
+    <h3>Result</h3>
+    <pre id="result">No data loaded yet.</pre>
+
+    <script>
+      const resultEl = document.getElementById('result');
+
+      async function fetchJson(path) {
+        try {
+          const res = await fetch(path);
+          const text = await res.text();
+          try { return JSON.parse(text); } catch(e){ return text }
+        } catch (err) { return { error: err.message } }
+      }
+
+      document.getElementById('btn-data').addEventListener('click', async () => {
+        resultEl.textContent = 'Loading /api/data...';
+        const data = await fetchJson('/api/data');
+        resultEl.textContent = JSON.stringify(data, null, 2);
+      });
+
+      document.getElementById('btn-status').addEventListener('click', async () => {
+        resultEl.textContent = 'Loading /api/status...';
+        const data = await fetchJson('/api/status');
+        resultEl.textContent = JSON.stringify(data, null, 2);
+      });
+
+      document.getElementById('btn-health').addEventListener('click', async () => {
+        resultEl.textContent = 'Checking /health...';
+        const data = await fetchJson('/health');
+        resultEl.textContent = JSON.stringify(data, null, 2);
+      });
+
+      // Auto-load status on page open
+      (async () => {
+        resultEl.textContent = 'Auto-loading /api/status...';
+        const data = await fetchJson('/api/status');
+        resultEl.textContent = JSON.stringify(data, null, 2);
+      })();
+    </script>
+  </body>
+</html>

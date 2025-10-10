@@ -1,0 +1,106 @@
+version: '3.8'
+
+services:
+  backend-blue:
+    image: ${BACKEND_IMAGE:-ghcr.io/your-org/backend:latest}
+    container_name: backend-blue
+    ports:
+      - "8000:8000"
+    environment:
+      - ENVIRONMENT=production
+      - PORT=8000
+    networks:
+      - app-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    labels:
+      - "deployment=blue"
+      - "service=backend"
+
+  backend-green:
+    image: ${BACKEND_IMAGE:-ghcr.io/your-org/backend:latest}
+    container_name: backend-green
+    ports:
+      - "8001:8000"
+    environment:
+      - ENVIRONMENT=production
+      - PORT=8000
+    networks:
+      - app-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    labels:
+      - "deployment=green"
+      - "service=backend"
+    profiles:
+      - green
+
+  frontend-blue:
+    image: ${FRONTEND_IMAGE:-ghcr.io/your-org/frontend:latest}
+    container_name: frontend-blue
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - API_BASE_URL=http://localhost:8000
+      - PORT=3000
+    networks:
+      - app-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    labels:
+      - "deployment=blue"
+      - "service=frontend"
+    depends_on:
+      - backend-blue
+
+  frontend-green:
+    image: ${FRONTEND_IMAGE:-ghcr.io/your-org/frontend:latest}
+    container_name: frontend-green
+    ports:
+      - "3001:3000"
+    environment:
+      - NODE_ENV=production
+      - API_BASE_URL=http://localhost:8001
+      - PORT=3000
+    networks:
+      - app-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    labels:
+      - "deployment=green"
+      - "service=frontend"
+    profiles:
+      - green
+    depends_on:
+      - backend-green
+
+networks:
+  app-network:
+    driver: bridge
+    name: fullstack-network
+
+volumes:
+  nginx_conf:
+  nginx_certs:
+  nginx_logs:
