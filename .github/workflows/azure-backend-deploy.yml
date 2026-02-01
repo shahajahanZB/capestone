@@ -1,9 +1,9 @@
-name: Azure ACR + ACI Deploy (Backend)
+name: Azure ACR + ACI Deploy (Backend) (disabled)
 
+# Backend deployments are disabled while we are using Static Web Apps only.
+# Change trigger to `workflow_dispatch` to run manually.
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 env:
   IMAGE_NAME: backend

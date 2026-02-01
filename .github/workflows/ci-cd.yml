@@ -1,10 +1,9 @@
-name: 'Full Stack CI/CD Pipeline'
+name: 'Full Stack CI/CD Pipeline' (disabled)
 
+# Disabled: this full-stack pipeline duplicates other workflows (CI and deploy).
+# Keep it for reference, but run it manually via the Actions UI if needed.
 on:
-  push:
-    branches: [ main, develop ]
-  pull_request:
-    branches: [ main ]
+  workflow_dispatch:
 
 env:
   REGISTRY: ghcr.io
