@@ -44,13 +44,18 @@ jobs:
             echo "AZURE_STATIC_WEB_APPS_API_TOKEN is present (secrets hidden in logs)."
           fi
 
+      - name: Show frontend public files
+        run: |
+          echo "Listing frontend/public to ensure index.html is present"
+          ls -la frontend/public || true
+
       - name: Build and Deploy to Azure Static Web Apps
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
-          app_location: "frontend"
+          app_location: "/"
           api_location: ""
           output_location: "frontend/public"
           # Skip Oryx build and upload the static files from `frontend/public` directly.
