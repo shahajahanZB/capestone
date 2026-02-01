@@ -1,6 +1,2 @@
-fastapi==0.104.1
-uvicorn[standard]==0.24.0
-python-multipart==0.0.6
-python-dotenv==1.0.0
-pydantic==2.5.0
-gunicorn==21.2.0
+# Backend requirements intentionally cleared — frontend-only project now.
+# Add backend dependencies here if/when you re-enable the backend.

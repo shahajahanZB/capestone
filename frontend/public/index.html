@@ -24,6 +24,16 @@
     <pre id="result">No data loaded yet.</pre>
 
     <script>
+      // API base URL placeholder — replaced at CI-time from FRONTEND_API_BASE_URL secret.
+      // If the placeholder is left as '/', the app will use relative paths.
+      window.API_BASE_URL = "%%API_BASE_URL%%";
+      function apiPath(path) {
+        if (!window.API_BASE_URL || window.API_BASE_URL === "" || window.API_BASE_URL === "/") {
+          return path;
+        }
+        return window.API_BASE_URL.replace(/\/$/, '') + path;
+      }
+
       const resultEl = document.getElementById('result');
 
       async function fetchJson(path) {
@@ -36,26 +46,26 @@
 
       document.getElementById('btn-data').addEventListener('click', async () => {
         resultEl.textContent = 'Loading /api/data...';
-        const data = await fetchJson('/api/data');
+        const data = await fetchJson(apiPath('/api/data'));
         resultEl.textContent = JSON.stringify(data, null, 2);
       });
 
       document.getElementById('btn-status').addEventListener('click', async () => {
         resultEl.textContent = 'Loading /api/status...';
-        const data = await fetchJson('/api/status');
+        const data = await fetchJson(apiPath('/api/status'));
         resultEl.textContent = JSON.stringify(data, null, 2);
       });
 
       document.getElementById('btn-health').addEventListener('click', async () => {
         resultEl.textContent = 'Checking /health...';
-        const data = await fetchJson('/health');
+        const data = await fetchJson(apiPath('/health'));
         resultEl.textContent = JSON.stringify(data, null, 2);
       });
 
       // Auto-load status on page open
       (async () => {
         resultEl.textContent = 'Auto-loading /api/status...';
-        const data = await fetchJson('/api/status');
+        const data = await fetchJson(apiPath('/api/status'));
         resultEl.textContent = JSON.stringify(data, null, 2);
       })();
     </script>

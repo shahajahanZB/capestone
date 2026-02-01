@@ -8,12 +8,11 @@ terraform {
     }
   }
 
-  backend "s3" {
-    bucket         = "your-terraform-state-bucket"  # Change this
-    key            = "fullstack-cicd/terraform.tfstate"
-    region         = "us-east-1"
-    encrypt        = true
-    dynamodb_table = "terraform-state-lock"
+  # Using a local backend by default for this project (no S3/DynamoDB).
+  # For team-based remote state and locking consider using Terraform Cloud or
+  # another supported remote backend.
+  backend "local" {
+    path = "terraform.tfstate"
   }
 }
 

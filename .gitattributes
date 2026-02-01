@@ -1,0 +1,11 @@
+# Enforce consistent line endings
+* text=auto
+
+# Force LF for scripts and configuration files used on Linux
+*.sh text eol=lf
+*.md text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.tf text eol=lf
+*.py text eol=lf
+*.dockerfile text eol=lf

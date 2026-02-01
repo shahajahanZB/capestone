@@ -1,0 +1,38 @@
+name: Azure ACR + ACI Deploy (Backend)
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  IMAGE_NAME: backend
+
+jobs:
+  build-push-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Build backend image
+        run: |
+          docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/$IMAGE_NAME:${{ github.sha }} backend
+
+      - name: Push to ACR
+        run: |
+          az acr login --name ${{ secrets.ACR_NAME }}
+          docker push ${{ secrets.ACR_LOGIN_SERVER }}/$IMAGE_NAME:${{ github.sha }}
+
+      - name: Deploy to ACI
+        run: |
+          az container create --resource-group ${{ secrets.AZURE_RG }} --name backend --image ${{ secrets.ACR_LOGIN_SERVER }}/$IMAGE_NAME:${{ github.sha }} --cpu 1 --memory 1 --ports 8000 --restart-policy OnFailure
+
+      - name: Smoke test
+        run: |
+          sleep 10
+          az container show --resource-group ${{ secrets.AZURE_RG }} --name backend --query ipAddress.ip --output tsv

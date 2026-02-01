@@ -20,15 +20,11 @@ Error: Error acquiring the state lock
 ```
 
 **Solution:**
-```bash
-# Force unlock (use carefully)
-terraform force-unlock LOCK_ID
+- If you are using **local state**: ensure no other process is running `terraform apply` in the same working directory. You can remove stale lock files or run `terraform init` and retry.
 
-# Or delete the DynamoDB item manually
-aws dynamodb delete-item \
-  --table-name terraform-state-lock \
-  --key '{"LockID": {"S": "LOCK_ID"}}'
-```
+- If you use **Terraform Cloud** (recommended for team workflows): unlock via the Terraform Cloud UI or use `terraform force-unlock LOCK_ID` from a CLI configured for Terraform Cloud.
+
+- If you had previously configured an AWS DynamoDB lock table (older setups), you can remove the lock item manually — but this repository is configured to use a local backend by default now.
 
 ### 2. Docker Build Issues
 
