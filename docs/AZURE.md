@@ -34,6 +34,8 @@ This guide explains how to deploy the mostly-frontend application to **Azure** u
 - `AZURE_CREDENTIALS` - JSON created from `az ad sp create-for-rbac --name "github-actions-sp" --role contributor --scopes /subscriptions/<sub-id>/resourceGroups/<rg> --sdk-auth` (copy full JSON output). **Only required if you deploy backend or manage Azure resources via Terraform.**
 - `AZURE_STATIC_WEB_APPS_API_TOKEN` - required for Static Web Apps deploy via the `Azure/static-web-apps-deploy` action. Get it from Azure Portal → Static Web App → **Manage deployment token**. **You have already added this token; rotate it if you believe it was exposed.**
 - `FRONTEND_API_BASE_URL` - (optional) set this to the backend API base URL (e.g., `https://api.projectapi.live` or `https://<your-backend>.azurecontainer.io`). The CI pipeline will inject this value into `frontend/public/index.html` at deploy time so the static site knows where to call the backend API.
+
+**Note on npm lockfiles:** Our workflows now use `npm install` so CI won't fail if `package-lock.json` is not present. For reproducible, deterministic installs and faster CI, it is recommended to run `npm install` locally and commit the generated `package-lock.json` to the repository, then switch workflows back to `npm ci`.
 - `DOMAIN_NAME` - (recommended) add your custom domain (e.g., `projectapi.live`) as a repo secret so the deploy workflow can automatically verify the site after deploy.
 
 - If using ACR/ACI:

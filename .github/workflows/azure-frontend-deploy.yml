@@ -19,7 +19,9 @@ jobs:
       - name: Install frontend deps & run tests
         working-directory: ./frontend
         run: |
-          npm ci
+          # Use `npm install` when package-lock.json is not present in repo.
+          # For deterministic builds, consider committing package-lock.json.
+          npm install
           npm test --silent
 
       - name: Inject FRONTEND_API_BASE_URL (optional)
