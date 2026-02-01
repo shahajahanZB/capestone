@@ -36,6 +36,8 @@ This guide explains how to deploy the mostly-frontend application to **Azure** u
 - `FRONTEND_API_BASE_URL` - (optional) set this to the backend API base URL (e.g., `https://api.projectapi.live` or `https://<your-backend>.azurecontainer.io`). The CI pipeline will inject this value into `frontend/public/index.html` at deploy time so the static site knows where to call the backend API.
 
 **Note on npm lockfiles:** Our workflows now use `npm install` so CI won't fail if `package-lock.json` is not present. For reproducible, deterministic installs and faster CI, it is recommended to run `npm install` locally and commit the generated `package-lock.json` to the repository, then switch workflows back to `npm ci`.
+
+**Note on builds for Azure Static Web Apps:** The workflow is configured to skip Oryx builds and directly upload the files in `frontend/public` (because your frontend is already a prebuilt static site). If in future you change to a framework that requires building (React/Vue/Next/etc.), add a `build` script to `frontend/package.json` (e.g., `"build": "react-scripts build"`) or set an explicit `app_build_command` in the workflow so Oryx will run your build step.
 - `DOMAIN_NAME` - (recommended) add your custom domain (e.g., `projectapi.live`) as a repo secret so the deploy workflow can automatically verify the site after deploy.
 
 - If using ACR/ACI:

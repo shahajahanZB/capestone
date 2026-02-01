@@ -43,6 +43,9 @@ jobs:
           app_location: "frontend"
           api_location: ""
           output_location: "frontend/public"
+          # Skip Oryx build and upload the static files from `frontend/public` directly.
+          # This is useful when your project already contains prebuilt static files.
+          skip_app_build: true
 
       - name: Verify deployment
         run: |
