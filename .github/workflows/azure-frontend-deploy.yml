@@ -46,7 +46,9 @@ jobs:
 
       - name: Show frontend public files
         run: |
-          echo "Listing frontend/public to ensure index.html is present"
+          echo "Listing frontend and frontend/public to ensure index.html is present"
+          ls -la frontend || true
+          echo "---"
           ls -la frontend/public || true
 
       - name: Build and Deploy to Azure Static Web Apps
@@ -57,7 +59,7 @@ jobs:
           action: "upload"
           app_location: "frontend"
           api_location: ""
-          output_location: "public"
+          app_artifact_location: "frontend/public"
           # Skip Oryx build and upload the static files from `frontend/public` directly.
           # This is useful when your project already contains prebuilt static files.
           skip_app_build: true
