@@ -1,110 +1,20 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>AI in Today's World — Capstone</title>
-  <meta name="description" content="Overview of modern AI technologies, trends, and demos." />
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo Notes</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-  <header class="site-header">
-    <div class="container header-inner">
-      <h1 class="logo">AI Today</h1>
-      <nav>
-        <a href="#topics" class="nav-link">Topics</a>
-        <a href="#about" class="nav-link">About</a>
-        <button id="themeToggle" class="btn small">Toggle Theme</button>
-      </nav>
+  <div class="container">
+    <h1>Todo Notes</h1>
+    <div class="input-group">
+      <input type="text" id="todo-input" placeholder="Add a new task...">
+      <button id="add-btn">Add</button>
     </div>
-  </header>
-
-  <main class="container">
-
-    <section class="hero">
-      <div class="hero-inner">
-        <h2>How AI is shaping our world — now</h2>
-        <p class="lead">
-          From language models and computer vision to MLOps and safety,
-          AI is transforming products and research across industries.
-        </p>
-        <div class="hero-actions">
-          <button id="exploreBtn" class="btn">Explore Topics</button>
-          <span class="static-badge">Static Demo</span>
-        </div>
-      </div>
-    </section>
-
-    <section id="topics" class="topics">
-      <h3>Key Topics</h3>
-      <div class="grid">
-
-        <article class="card" data-topic="nlp">
-          <h4>Natural Language Processing</h4>
-          <p>LLMs, chatbots, summarization, and retrieval-augmented generation.</p>
-          <button class="card-btn">Learn more</button>
-        </article>
-
-        <article class="card" data-topic="cv">
-          <h4>Computer Vision</h4>
-          <p>Image recognition, detection, and generative vision models.</p>
-          <button class="card-btn">Learn more</button>
-        </article>
-
-        <article class="card" data-topic="gen">
-          <h4>Generative Models</h4>
-          <p>Text, image, audio, and code generation systems.</p>
-          <button class="card-btn">Learn more</button>
-        </article>
-
-        <article class="card" data-topic="mlops">
-          <h4>MLOps & Infrastructure</h4>
-          <p>CI/CD, monitoring, deployment, and reliability for ML systems.</p>
-          <button class="card-btn">Learn more</button>
-        </article>
-
-        <article class="card" data-topic="ethics">
-          <h4>Ethics & Safety</h4>
-          <p>Bias, privacy, transparency, and governance in AI.</p>
-          <button class="card-btn">Learn more</button>
-        </article>
-
-        <article class="card" data-topic="rl">
-          <h4>Reinforcement Learning</h4>
-          <p>Learning optimal decisions through interaction and feedback.</p>
-          <button class="card-btn">Learn more</button>
-        </article>
-
-      </div>
-    </section>
-
-    <section id="about" class="about">
-      <h3>About This Demo</h3>
-      <p>
-        This is a fully static educational site built to showcase
-        modern AI topics. It runs without any backend services and
-        is deployable on any static hosting platform.
-      </p>
-    </section>
-
-  </main>
-
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <p>Capstone Project • Static Web Demo</p>
-    </div>
-  </footer>
-
-  <!-- Modal -->
-  <div id="modal" class="modal" aria-hidden="true">
-    <div class="modal-content">
-      <button id="modalClose" class="modal-close">×</button>
-      <h4 id="modalTitle"></h4>
-      <div id="modalBody"></div>
-    </div>
+    <ul id="todo-list"></ul>
   </div>
-
   <script src="script.js"></script>
 </body>
 </html>
