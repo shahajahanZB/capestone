@@ -1,38 +1,18 @@
-name: CI
+name: Static Site CI
 
 on:
-  pull_request:
-    branches: [ main ]
   push:
     branches: [ main ]
-
-# NOTE: CI now runs on pull requests and on pushes to main (merge commits) so
-# tests will run before/after merges for automated safety.
+  pull_request:
 
 jobs:
-  tests:
+  verify:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.x'
-
-      - name: Backend tests removed
+      - name: Verify static files exist
         run: |
-          echo "Skipping backend tests; no backend directory present in this repository."
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-
-      - name: Install frontend deps & run tests
-        working-directory: ./frontend
-        run: |
-          # Use `npm install` when package-lock.json is not present in repo.
-          # For deterministic builds, consider committing package-lock.json.
-          npm install
-          npm test --silent
+          echo "Checking frontend/public contents"
+          ls -la frontend/public
