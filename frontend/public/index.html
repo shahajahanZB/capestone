@@ -2,19 +2,70 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <title>Bean & Brew Coffee Shop</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Todo Notes</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <h1>Todo Notes</h1>
-    <div class="input-group">
-      <input type="text" id="todo-input" placeholder="Add a new task...">
-      <button id="add-btn">Add</button>
+  <header class="header">
+    <div class="logo">Bean & Brew</div>
+    <nav class="nav">
+      <ul>
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <button class="nav-toggle" aria-label="Toggle navigation">☰</button>
+  </header>
+
+  <section id="hero" class="hero">
+    <div class="hero-content">
+      <h1>Welcome to Bean & Brew</h1>
+      <p>Freshly brewed coffee, cozy atmosphere.</p>
+      <a href="#menu" class="btn">Explore Menu</a>
     </div>
-    <ul id="todo-list"></ul>
-  </div>
+  </section>
+
+  <section id="about" class="about">
+    <h2>About Us</h2>
+    <p>At Bean & Brew, we serve the finest coffee sourced from sustainable farms. Our baristas craft each cup with passion and precision.</p>
+    <img src="https://source.unsplash.com/800x600/?coffee-shop" alt="Coffee shop interior">
+  </section>
+
+  <section id="menu" class="menu">
+    <h2>Our Menu</h2>
+    <div class="menu-items">
+      <article class="menu-item">
+        <img src="https://source.unsplash.com/400x300/?espresso" alt="Espresso">
+        <h3>Espresso</h3>
+        <p>Strong and bold, 30ml.</p>
+      </article>
+      <article class="menu-item">
+        <img src="https://source.unsplash.com/400x300/?latte" alt="Latte">
+        <h3>Latte</h3>
+        <p>Smooth milk with espresso.</p>
+      </article>
+      <article class="menu-item">
+        <img src="https://source.unsplash.com/400x300/?cappuccino" alt="Cappuccino">
+        <h3>Cappuccino</h3>
+        <p>Foamy delight.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <h2>Contact Us</h2>
+    <p>123 Brew Lane, Coffee City</p>
+    <p>Phone: (555) 123-4567</p>
+    <p>Email: info@beanbrew.com</p>
+  </section>
+
+  <footer class="footer">
+    <p>&copy; 2026 Bean & Brew. All rights reserved.</p>
+  </footer>
+
   <script src="script.js"></script>
 </body>
 </html>
