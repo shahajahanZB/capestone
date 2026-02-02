@@ -6,4 +6,4 @@ See the repository `SETUP.md` for full instructions. The top-level `SETUP.md` ha
 
 ---
 
-**Azure-specific instructions:** see `docs/AZURE.md` for step-by-step guidance on deploying the frontend to **Azure Static Web Apps** and the backend (optional) to **ACR + ACI**.
+**Azure-specific instructions:** see `docs/AZURE.md` for step-by-step guidance on deploying the frontend to **Azure Static Web Apps**.

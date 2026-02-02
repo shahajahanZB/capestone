@@ -1,20 +1,19 @@
 # Azure Deployment Guide (Student Account) 🔷
 
-This guide explains how to deploy the mostly-frontend application to **Azure** using GitHub Actions. It focuses on low-cost/student-friendly options: **Azure Static Web Apps** for the frontend and **Azure Container Registry (ACR) + Azure Container Instances (ACI)** for the backend container if needed.
+This guide explains how to deploy the frontend to **Azure** using GitHub Actions. It focuses on low-cost/student-friendly options: **Azure Static Web Apps** for the frontend.
 
 ---
 
 ## Recommended architecture (student-friendly)
 
 - Frontend: Azure Static Web Apps (free tier for students). Integrates with GitHub Actions and provides CDN + SSL automatically. ✅
-- Backend (optional): Azure Container Instance (ACI) or Azure App Service for Containers. ACI is simpler for small containers and pay-as-you-go. ⚠️ Monitor usage (student limits).
-- Container images: push to **Azure Container Registry (ACR)** or use GHCR if you prefer.
+- Container images: push to **Azure Container Registry (ACR)** or use GHCR if you prefer (only necessary if you're packaging containers for custom infra).
 
 ---
 
 ## Prerequisites
 
-- Azure subscription (student free account) with enough quota for one ACI instance. 
+- Azure subscription (student free account) for optional Terraform usage. 
 - Azure CLI locally for manual steps (optional): `az`.
 - GitHub repository admin rights to add repository Secrets and Actions.
 
@@ -22,28 +21,21 @@ This guide explains how to deploy the mostly-frontend application to **Azure** u
 
 ## Required Azure resources & decisions
 
-1. **Resource Group** (create in a nearby region, e.g., `eastus`) — used to group ACR, ACI, or Static Web App.
+1. **Resource Group** (create in a nearby region, e.g., `eastus`) — used to group resources if you're using Terraform or managing resources manually.
 2. **Azure Static Web App** — create via portal or via `az`/Terraform (recommended for frontend only).
-3. **ACR (optional)** — if you want to publish backend container images to Azure.
-4. **ACI (optional)** — to run the backend Docker container if you do not want to host the backend as a serverless API.
 
 ---
 
 ## GitHub Secrets to add
 
-- `AZURE_CREDENTIALS` - JSON created from `az ad sp create-for-rbac --name "github-actions-sp" --role contributor --scopes /subscriptions/<sub-id>/resourceGroups/<rg> --sdk-auth` (copy full JSON output). **Only required if you deploy backend or manage Azure resources via Terraform.**
+- `AZURE_CREDENTIALS` - JSON created from `az ad sp create-for-rbac --name "github-actions-sp" --role contributor --scopes /subscriptions/<sub-id>/resourceGroups/<rg> --sdk-auth` (copy full JSON output). **Only required if you manage Azure resources via Terraform.**
 - `AZURE_STATIC_WEB_APPS_API_TOKEN` - required for Static Web Apps deploy via the `Azure/static-web-apps-deploy` action. Get it from Azure Portal → Static Web App → **Manage deployment token**. **You have already added this token; rotate it if you believe it was exposed.**
-- `FRONTEND_API_BASE_URL` - (optional) set this to the backend API base URL (e.g., `https://api.projectapi.live` or `https://<your-backend>.azurecontainer.io`). The CI pipeline will inject this value into `frontend/public/index.html` at deploy time so the static site knows where to call the backend API.
+- `FRONTEND_API_BASE_URL` - (optional) set this to an API base URL if your static site needs to call a separate backend. The CI pipeline will inject this value into `frontend/public/index.html` at deploy time so the static site knows where to call that API.
 
 **Note on npm lockfiles:** Our workflows now use `npm install` so CI won't fail if `package-lock.json` is not present. For reproducible, deterministic installs and faster CI, it is recommended to run `npm install` locally and commit the generated `package-lock.json` to the repository, then switch workflows back to `npm ci`.
 
 **Note on builds for Azure Static Web Apps:** The workflow is configured to skip Oryx builds and directly upload the files in `frontend/public` (because your frontend is already a prebuilt static site). If in future you change to a framework that requires building (React/Vue/Next/etc.), add a `build` script to `frontend/package.json` (e.g., `"build": "react-scripts build"`) or set an explicit `app_build_command` in the workflow so Oryx will run your build step.
 - `DOMAIN_NAME` - (recommended) add your custom domain (e.g., `projectapi.live`) as a repo secret so the deploy workflow can automatically verify the site after deploy.
-
-- If using ACR/ACI:
-  - `ACR_NAME` - Azure Container Registry name
-  - `ACR_LOGIN_SERVER` - e.g., `myacr.azurecr.io`
-  - `AZURE_RG` - Resource group name
 
 **Security note:** You shared a Static Web Apps token in chat. Treat it as compromised: please **regenerate** it in the Azure Portal and add the new value to the GitHub secret `AZURE_STATIC_WEB_APPS_API_TOKEN`. Do not paste secrets into chat.
 
@@ -51,9 +43,8 @@ This guide explains how to deploy the mostly-frontend application to **Azure** u
 
 ## CI/CD plan (short)
 
-1. **CI**: Run tests on PRs (backend pytest, frontend npm test).
+1. **CI**: Run tests on PRs (frontend npm test).
 2. **Frontend CD**: On push to `main`, build and deploy `frontend/` to Azure Static Web Apps using `Azure/static-web-apps-deploy` action.
-3. **Backend CD (optional)**: Build Docker image, push to ACR, then create or update an ACI instance using `az container create` or `az container restart`.
 
 ---
 
@@ -76,12 +67,6 @@ az ad sp create-for-rbac --name "github-actions-sp" --role contributor --scopes 
 
 ```bash
 az acr create --resource-group <rg> --name <acr-name> --sku Standard
-```
-
-- Create an ACI instance from an image in ACR:
-
-```bash
-az container create --resource-group <rg> --name backend --image <acr-login-server>/backend:TAG --cpu 1 --memory 1 --ports 8000
 ```
 
 ---

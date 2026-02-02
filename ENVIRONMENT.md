@@ -24,22 +24,6 @@ This guide covers all environment variables and secrets needed for the CI/CD pip
 
 ## Environment Files
 
-### Backend (.env)
-```bash
-# Application
-ENVIRONMENT=production
-PORT=8000
-DEBUG=false
-LOG_LEVEL=INFO
-
-# Database (if using)
-DATABASE_URL=postgresql://user:pass@localhost:5432/dbname
-
-# External APIs
-API_KEY=your-api-key-here
-SECRET_KEY=your-secret-key-here
-```
-
 ### Frontend (.env)
 ```bash
 # Application
@@ -47,8 +31,8 @@ NODE_ENV=production
 PORT=3000
 
 # API Configuration
-API_BASE_URL=http://localhost:8000
-FRONTEND_URL=http://localhost:3000
+# Set this to the public API base URL if you have one; otherwise use a relative path '/'
+API_BASE_URL=/
 
 # External Services
 ANALYTICS_ID=your-analytics-id
@@ -56,21 +40,12 @@ ANALYTICS_ID=your-analytics-id
 
 ## Docker Environment Variables
 
-### Backend Container
-```yaml
-environment:
-  - ENVIRONMENT=production
-  - PORT=8000
-  - DATABASE_URL=${DATABASE_URL}
-  - SECRET_KEY=${SECRET_KEY}
-```
-
 ### Frontend Container
 ```yaml
 environment:
   - NODE_ENV=production
   - PORT=3000
-  - API_BASE_URL=http://backend:8000
+  - API_BASE_URL=/
 ```
 
 ## AWS Systems Manager Parameter Store (Advanced)
@@ -106,13 +81,8 @@ DATABASE_URL=$(aws ssm get-parameter \
 Create `.env.local` files for local development:
 
 ```bash
-# backend/.env.local
-DATABASE_URL=postgresql://localhost:5432/dev_db
-DEBUG=true
-LOG_LEVEL=DEBUG
-
 # frontend/.env.local
-API_BASE_URL=http://localhost:8000
+API_BASE_URL=/
 NODE_ENV=development
 ```
 

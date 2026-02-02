@@ -8,7 +8,7 @@ require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const API_BASE_URL = process.env.API_BASE_URL || 'http://localhost:8000';
+const API_BASE_URL = process.env.API_BASE_URL || '/';
 
 // Middleware
 app.use(helmet());
@@ -40,7 +40,7 @@ app.get('/api/data', async (req, res) => {
     } catch (error) {
         console.error('API Error:', error.message);
         res.status(500).json({ 
-            error: 'Failed to fetch data from backend',
+            error: 'Failed to fetch data from API',
             message: error.message 
         });
     }
@@ -53,20 +53,20 @@ app.post('/api/data', async (req, res) => {
     } catch (error) {
         console.error('API Error:', error.message);
         res.status(500).json({ 
-            error: 'Failed to create data in backend',
+            error: 'Failed to create data in API',
             message: error.message 
         });
     }
 });
 
-// Backend health check proxy
-app.get('/api/backend-health', async (req, res) => {
+// API health-check proxy (for convenience) — proxies to configured API if available
+app.get('/api/health-proxy', async (req, res) => {
     try {
         const response = await axios.get(`${API_BASE_URL}/health`);
         res.json(response.data);
     } catch (error) {
         res.status(503).json({ 
-            status: 'backend-unavailable',
+            status: 'api-unavailable',
             message: error.message 
         });
     }

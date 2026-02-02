@@ -67,6 +67,8 @@
     return `<p>${docs[topic] || 'More info coming soon.'}</p>`;
   }
 
-  // Auto-check backend health once on load
+  // Auto-check API health once on load
   (function(){ ping(); })();
+
+  // Note: API URL fallback defaults to '/', change via FRONTEND build secret FRONTEND_API_BASE_URL if needed.
 })();

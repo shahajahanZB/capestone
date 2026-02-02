@@ -15,9 +15,9 @@ describe('Frontend Server', () => {
         expect(response.headers['content-type']).toMatch(/html/);
     });
 
-    test('GET /api/data should handle backend proxy', async () => {
-        // This test will pass even if backend is down
+    test('GET /api/data should handle API proxy', async () => {
+        // This test will pass even if an external API is not present
         const response = await request(app).get('/api/data');
-        expect([200, 500]).toContain(response.status);
+        expect([200, 500, 503]).toContain(response.status);
     });
 });

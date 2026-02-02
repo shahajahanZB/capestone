@@ -64,19 +64,19 @@ docker system df
 
 #### Error: "Health check failed"
 ```
-❌ Backend blue failed health check
+❌ Frontend failed health check
 ```
 
 **Solution:**
 ```bash
-# Check container logs
-docker logs backend-blue --tail 50
+# Check frontend container logs
+docker logs frontend-blue --tail 50
 
 # Check if service is actually running
-curl -f http://localhost:8000/health
+curl -f http://localhost:3000/health
 
 # Check container status
-docker ps -a | grep backend
+docker ps -a | grep frontend
 ```
 
 #### Error: "Image pull failed"
@@ -90,7 +90,7 @@ Error response from daemon: pull access denied
 echo $GITHUB_TOKEN | docker login ghcr.io -u $USERNAME --password-stdin
 
 # Check image exists
-docker pull ghcr.io/your-org/backend:latest
+docker pull ghcr.io/your-org/frontend:latest
 
 # Check image permissions on GitHub
 ```

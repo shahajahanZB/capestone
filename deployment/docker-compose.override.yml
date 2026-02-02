@@ -1,34 +1,6 @@
 version: '3.8'
 
 services:
-  backend-blue:
-    build:
-      context: ../backend
-      dockerfile: Dockerfile
-    image: fullstack-backend:local
-    ports:
-      - "8000:8000"
-    environment:
-      - ENVIRONMENT=development
-      - PORT=8000
-    networks:
-      - app-network
-
-  backend-green:
-    build:
-      context: ../backend
-      dockerfile: Dockerfile
-    image: fullstack-backend:local
-    ports:
-      - "8001:8000"
-    environment:
-      - ENVIRONMENT=development
-      - PORT=8000
-    networks:
-      - app-network
-    profiles:
-      - green
-
   frontend-blue:
     build:
       context: ../frontend
@@ -38,12 +10,10 @@ services:
       - "3000:3000"
     environment:
       - NODE_ENV=development
-      - API_BASE_URL=http://localhost:8000
+      - API_BASE_URL=/
       - PORT=3000
     networks:
       - app-network
-    depends_on:
-      - backend-blue
 
   frontend-green:
     build:
@@ -54,14 +24,12 @@ services:
       - "3001:3000"
     environment:
       - NODE_ENV=development
-      - API_BASE_URL=http://localhost:8001
+      - API_BASE_URL=/
       - PORT=3000
     networks:
       - app-network
     profiles:
       - green
-    depends_on:
-      - backend-green
 
 networks:
   app-network:

@@ -28,7 +28,7 @@
         <p class="lead">From language models and computer vision to MLOps and safety, AI is transforming products and research across industries.</p>
         <div class="hero-actions">
           <button id="exploreBtn" class="btn">Explore Topics</button>
-          <button id="pingBtn" class="btn alt">Ping Backend</button>
+          <button id="pingBtn" class="btn alt">Ping API</button>
           <span id="pingResult" class="ping-result">No check yet</span>
         </div>
       </div>
@@ -85,7 +85,7 @@
 
     <section id="about" class="about">
       <h3>About This Demo</h3>
-      <p>This is a lightweight informational frontend about current AI technologies. Use the <strong>Ping Backend</strong> button to test your backend and the CI/CD build will inject the production API URL during deploy. Locally, the site falls back to <code>http://localhost:8000</code> for testing.</p>
+      <p>This is a lightweight informational frontend about current AI technologies. Use the <strong>Ping API</strong> button to test connectivity to an API if configured; the CI/CD build can inject a production API URL during deploy. Locally, the site uses a relative API path by default (`/`) unless `API_BASE_URL` is provided.</p>
     </section>
 
   </main>
