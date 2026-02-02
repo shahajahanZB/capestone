@@ -9,6 +9,11 @@
   const modalBody = document.getElementById('modalBody');
   const modalClose = document.getElementById('modalClose');
 
+  // Default to light theme; toggle will switch to dark
+  if (!document.documentElement.getAttribute('data-theme')) {
+    document.documentElement.setAttribute('data-theme', 'light');
+  }
+
   // Determine API base (support multiple placeholders)
   const rawBase = (window.API_BASE_URL || '').trim() || (window.API_URL || '').trim();
   const apiBase = (rawBase && rawBase !== '%%API_BASE_URL%%' && rawBase !== '%API_URL%') ? rawBase.replace(/\/$/, '') : 'http://localhost:8000';
@@ -29,8 +34,8 @@
   pingBtn.addEventListener('click', ping);
 
   themeToggle.addEventListener('click', () => {
-    const dark = document.documentElement.getAttribute('data-theme') !== 'light';
-    document.documentElement.setAttribute('data-theme', dark ? 'light' : '');
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
   });
 
   exploreBtn.addEventListener('click', () => {
