@@ -4,12 +4,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>AI in Today's World — Capstone</title>
-  <meta name="description" content="Overview of modern AI technologies, trends, and quick demos." />
+  <meta name="description" content="Overview of modern AI technologies, trends, and demos." />
   <link rel="stylesheet" href="styles.css" />
-  <!-- Build-time replacement: FRONTEND workflow can replace either of these placeholders -->
-  <script>window.API_BASE_URL = "%%API_BASE_URL%%"; window.API_URL = "%API_URL%";</script>
 </head>
 <body>
+
   <header class="site-header">
     <div class="container header-inner">
       <h1 class="logo">AI Today</h1>
@@ -22,14 +21,17 @@
   </header>
 
   <main class="container">
+
     <section class="hero">
       <div class="hero-inner">
         <h2>How AI is shaping our world — now</h2>
-        <p class="lead">From language models and computer vision to MLOps and safety, AI is transforming products and research across industries.</p>
+        <p class="lead">
+          From language models and computer vision to MLOps and safety,
+          AI is transforming products and research across industries.
+        </p>
         <div class="hero-actions">
           <button id="exploreBtn" class="btn">Explore Topics</button>
-          <button id="pingBtn" class="btn alt">Ping API</button>
-          <span id="pingResult" class="ping-result">No check yet</span>
+          <span class="static-badge">Static Demo</span>
         </div>
       </div>
     </section>
@@ -39,44 +41,38 @@
       <div class="grid">
 
         <article class="card" data-topic="nlp">
-          <svg class="card-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 8h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 12h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 16h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           <h4>Natural Language Processing</h4>
-          <p>Large language models, retrieval-augmented generation, chatbots, and summarization that enable human-like language tasks.</p>
+          <p>LLMs, chatbots, summarization, and retrieval-augmented generation.</p>
           <button class="card-btn">Learn more</button>
         </article>
 
         <article class="card" data-topic="cv">
-          <svg class="card-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M8 10l2 2 3-3 5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           <h4>Computer Vision</h4>
-          <p>Image recognition, detection, and generative image models used in healthcare, robotics, and media creation.</p>
+          <p>Image recognition, detection, and generative vision models.</p>
           <button class="card-btn">Learn more</button>
         </article>
 
         <article class="card" data-topic="gen">
-          <svg class="card-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.77 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="0.8"/></svg>
           <h4>Generative Models</h4>
-          <p>Text, image, audio and code generation powering creative tools and content pipelines.</p>
+          <p>Text, image, audio, and code generation systems.</p>
           <button class="card-btn">Learn more</button>
         </article>
 
         <article class="card" data-topic="mlops">
-          <svg class="card-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 7h18" stroke="currentColor" stroke-width="1.5"/><path d="M6 7v10" stroke="currentColor" stroke-width="1.5"/><path d="M18 7v10" stroke="currentColor" stroke-width="1.5"/></svg>
           <h4>MLOps & Infrastructure</h4>
-          <p>Reliable model training, monitoring, and deployment workflows that keep production systems safe and scalable.</p>
+          <p>CI/CD, monitoring, deployment, and reliability for ML systems.</p>
           <button class="card-btn">Learn more</button>
         </article>
 
         <article class="card" data-topic="ethics">
-          <svg class="card-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/><path d="M12 8v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M12 16h.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
           <h4>Ethics & Safety</h4>
-          <p>Bias mitigation, privacy-preserving methods, and governance to ensure trustworthy AI.</p>
+          <p>Bias, privacy, transparency, and governance in AI.</p>
           <button class="card-btn">Learn more</button>
         </article>
 
         <article class="card" data-topic="rl">
-          <svg class="card-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 12h3l3 8 4-16 3 8h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           <h4>Reinforcement Learning</h4>
-          <p>Decision-making and control systems that learn from interaction and feedback.</p>
+          <p>Learning optimal decisions through interaction and feedback.</p>
           <button class="card-btn">Learn more</button>
         </article>
 
@@ -85,23 +81,27 @@
 
     <section id="about" class="about">
       <h3>About This Demo</h3>
-      <p>This is a lightweight informational frontend about current AI technologies. Use the <strong>Ping API</strong> button to test connectivity to an API if configured; the CI/CD build can inject a production API URL during deploy. Locally, the site uses a relative API path by default (`/`) unless `API_BASE_URL` is provided.</p>
+      <p>
+        This is a fully static educational site built to showcase
+        modern AI topics. It runs without any backend services and
+        is deployable on any static hosting platform.
+      </p>
     </section>
 
   </main>
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <p>Capstone Demo • Built for testing and demos • Preview locally: <code>cd frontend/public &amp;&amp; python -m http.server 8080</code></p>
+      <p>Capstone Project • Static Web Demo</p>
     </div>
   </footer>
 
-  <!-- Modal for topic details -->
+  <!-- Modal -->
   <div id="modal" class="modal" aria-hidden="true">
-    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-      <button id="modalClose" class="modal-close" aria-label="Close">×</button>
-      <h4 id="modalTitle">Title</h4>
-      <div id="modalBody">Details</div>
+    <div class="modal-content">
+      <button id="modalClose" class="modal-close">×</button>
+      <h4 id="modalTitle"></h4>
+      <div id="modalBody"></div>
     </div>
   </div>
 
