@@ -1,2 +1,0 @@
-# Backend requirements intentionally cleared — frontend-only project now.
-# Add backend dependencies here if/when you re-enable the backend.
