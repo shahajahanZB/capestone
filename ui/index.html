@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AI Static Site Builder</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="layout">
+
+  <div class="chat">
+    <h2>Website Builder</h2>
+
+    <textarea id="prompt"
+      placeholder="Build a coffee shop landing page with hero section..."></textarea>
+
+    <button onclick="generate()">Generate</button>
+    <button onclick="push()">Push to GitHub</button>
+  </div>
+
+  <div class="preview">
+    <iframe id="frame" src="http://localhost:8000/site/index.html"></iframe>
+  </div>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
