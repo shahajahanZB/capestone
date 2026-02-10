@@ -1,1 +1,9 @@
-document.addEventListener('DOMContentLoaded',()=>{const buttons=document.querySelectorAll('.add');buttons.forEach(btn=>{btn.addEventListener('click',()=>{alert('Added to cart!');});});});
+let cartCount = 0;
+const cartDisplay = document.getElementById('cart-count');
+
+document.querySelectorAll('.add-to-cart').forEach(button => {
+  button.addEventListener('click', () => {
+    cartCount++;
+    cartDisplay.textContent = `Cart: ${cartCount}`;
+  });
+});

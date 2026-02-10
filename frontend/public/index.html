@@ -2,55 +2,52 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Tea & More</title>
+<title>Tea & Treats</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header>
-<h1>Tea & More</h1>
+<h1>Tea & Treats</h1>
 <nav>
 <ul>
 <li><a href="#">Home</a></li>
 <li><a href="#">Products</a></li>
-<li><a href="#">About</a></li>
 <li><a href="#">Contact</a></li>
 </ul>
 </nav>
 </header>
 <main>
 <section class="products">
-<h2>Our Products</h2>
-<div class="grid">
-<div class="product">
-<img src="https://source.unsplash.com/300x200/?tea" alt="Tea">
+<div class="product-card" data-name="Green Tea" data-price="3.99">
+<img src="https://source.unsplash.com/300x200/?tea" alt="Green Tea">
 <h3>Green Tea</h3>
-<p>$3.99</p>
-<button class="add">Add to Cart</button>
+<p class="price">$3.99</p>
+<button class="add-to-cart">Add to Cart</button>
 </div>
-<div class="product">
+<div class="product-card" data-name="Coffee" data-price="4.49">
 <img src="https://source.unsplash.com/300x200/?coffee" alt="Coffee">
-<h3>Espresso</h3>
-<p>$4.99</p>
-<button class="add">Add to Cart</button>
+<h3>Coffee</h3>
+<p class="price">$4.49</p>
+<button class="add-to-cart">Add to Cart</button>
 </div>
-<div class="product">
+<div class="product-card" data-name="Samosa" data-price="2.99">
 <img src="https://source.unsplash.com/300x200/?samosa" alt="Samosa">
 <h3>Samosa</h3>
-<p>$2.49</p>
-<button class="add">Add to Cart</button>
+<p class="price">$2.99</p>
+<button class="add-to-cart">Add to Cart</button>
 </div>
-<div class="product">
+<div class="product-card" data-name="Vada" data-price="3.49">
 <img src="https://source.unsplash.com/300x200/?vada" alt="Vada">
 <h3>Vada</h3>
-<p>$2.99</p>
-<button class="add">Add to Cart</button>
-</div>
+<p class="price">$3.49</p>
+<button class="add-to-cart">Add to Cart</button>
 </div>
 </section>
 </main>
 <footer>
-<p>&copy; 2026 Tea Shop</p>
+<p>&copy; 2026 Tea & Treats</p>
 </footer>
+<div id="cart-count" class="cart-count">Cart: 0</div>
 <script src="script.js"></script>
 </body>
 </html>
