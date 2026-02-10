@@ -1,0 +1,1 @@
+document.addEventListener('DOMContentLoaded',()=>{const buttons=document.querySelectorAll('.add');buttons.forEach(btn=>{btn.addEventListener('click',()=>{alert('Added to cart!');});});});
